@@ -1,200 +1,178 @@
-
 import java.util.Scanner;
-public class Inheritence {
-    public static void main(String args[])
-    {
-
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("Enter Name :");
-        String name = sc.next();
-         sc.nextLine();
-
-        System.out.print("Enter Code :");
-        int code = sc.nextInt();
-        sc.nextLine();
-         
-
-         System.out.print("Enter Speed :");
-        int speed = sc.nextInt();
-         sc.nextLine();
-
-        System.out.print("Enter Grade :");
-        String grade = sc.next();
-         sc.nextLine();
-
-        System.out.print("Enter Subject :");
-        String subject = sc.next();
-         sc.nextLine();
-
-        System.out.print("Enter University :");
-        String uni = sc.next();
-         sc.nextLine();
-
-        System.out.print("Enter Salary :");
-        int salary = sc.nextInt();
-         sc.nextLine();
-
-         System.out.print("Enter Daily Wages :");
-        int daily_wages= sc.nextInt();
-         sc.nextLine();
-
-        
-        Staff staff = new Staff(code , name);
-        Typist type = new Typist(code,name,speed);
-        Officer officer = new Officer(code,name,grade);
-        Teacher teacher = new Teacher(code,name,subject,uni);
-        Regular regular = new Regular(code,name,salary);
-        Casual casual = new Casual(code,name,daily_wages);
-
-        System.out.println(staff.toString());
-        System.out.println(type.toString());
-        System.out.println(officer.toString());
-        System.out.println(teacher.toString());
-        System.out.println(regular.toString());
-        System.out.println(casual.toString());
-        
-    }
-    
-}
-
-class Staff
-{
-    protected int code;
+class Staff{
+    protected int code ;
     protected String name ;
-    
-        public Staff(int code ,String name )
-        {
-            this.code = code;
-            this.name = name;
 
-        }
-        public int getCode()
-        {
-           return this.code;
-        }
-         public String getName()
-        {
-           return this.name;
-        }
-        public String toString()
-        {
-            return "\n\n"+ "Name: " + this.name+ "\n" +"code_No:" + this.code ;
-        }
-        
+    public Staff(int code , String name){
+        this.code = code ;
+        this.name = name ;
+    }
 
-}
+    public int getCode(){
+        return this.code;
+    }
+    public String getName(){
+        return this.name;
+    }
 
-class Typist extends Staff
-{
-   
-    private int speed ;
-    
-        public Typist(int code ,String name ,int speed)
-        {
-            super(code,name);
-            this.speed = speed;
-
-        }
-        public int getSpeed()
-        {
-           return this.speed;
-        }
-        public String toString()
-        {
-            return "Speed: "+this.speed ;
-        }
-    
-
+    public String toString(){
+        return "Staff Code : "+ this.code +"\n"+ "Staff Name : "+ this.name ; 
+    }
 }
 
 class Teacher extends Staff{
     private String subject;
-    private String uni ;
-    public Teacher(int code ,String name,String subject ,String uni)
-    {
-        super(code,name);
+
+    public Teacher(String subject , int code , String name){
+        super( code , name );
         this.subject = subject;
-        this.uni = uni ;
     }
-     public String getSubject()
-        {
-           return this.subject;
-        }
-         public String getUni()
-        {
-           return this.uni;
-        }
-     public String toString()
-    {
-            return "Subject: "+this.subject+"\n"+"University: "+this.uni ;
+
+    public String getSubject(){
+        return this.subject;
     }
-    
+
+    public String toString(){
+        return super.toString() +"\n"+"Teacher's Subject : "+ this.subject ;
+    }
+}
+
+class Typist extends Staff{
+    protected int speed;
+
+    public Typist(int speed , int code, String name){
+        super( code , name );
+        this.speed = speed;
+    }
+
+    public int getSpeed(){
+        return this.speed;
+    }
+
+    public String toString(){
+        return super.toString() +"\n"+ "Speed of Typist : "+this.speed ;
+    }
 }
 
 class Officer extends Staff{
     private String grade;
-    public Officer(int code,String name ,String grade)
-    {
-        super(code,name);
+
+    public Officer(String grade , int code , String name){
+        super( code , name );
         this.grade = grade;
-
-    }
-     public String getGrade()
-        {
-           return this.grade;
-        }
-    public String toString()
-    {
-            return "Grade: "+this.grade ;
     }
 
+    public String getGrade(){
+        return this.grade;
+    }
 
+    public String toString(){
+        return super.toString()+"\n"+"Officer's Grade : "+ this.grade ;
+    }
 }
-class Regular extends Staff{
-    private int salary;
-    public Regular(int code,String name ,int salary)
-    {
-        super(code,name);
+
+class Regular extends Typist{
+    private double salary;
+
+    public Regular(double salary , int speed , int code , String name){
+        super( speed , code , name);
         this.salary = salary;
     }
-    public int getSalary()
-        {
-           return this.salary;
-        }
-    public String toString()
-    {
-            return "Salary: "+this.salary ;
+
+    public double getSalary(){
+        return this.salary;
     }
 
-}
-class Casual extends Staff{
-    private int daily_wages;
-    public Casual(int code,String name ,int daily_wages)
-    {
-        super(code,name);
-        this.daily_wages = daily_wages;
+    public String toString(){
+        return super.toString() +"\n"+ "Permanent Employee Salary : "+ this.salary ;
     }
-     public int getDaily_Wages()
-        {
-           return this.daily_wages;
-        }
-    public String toString()
-    {
-            return "Daily Wages:"+this.daily_wages ;
-    }
-
 }
 
+class Casual extends Typist{
+    private double dailyWages;
 
+    public Casual(double dailyWages , int speed , int code , String name ){
+        super(speed , code , name );
+        this.dailyWages = dailyWages ;
+    }
+
+    public double getDailyWages(){
+        return this.dailyWages;
+    }
+
+    public String toString(){
+        return super.toString() + "\n"+ "Casual Employee Salary : "+ this.dailyWages ;
+    }
+
+
+}
+
+public class Inheritence{
+    public static void main(String[] args){
+       Scanner sc = new Scanner(System.in);
+       String name , subject ,grade ;
+       int code , speed ;
+       double salary , dailyWages ; 
     
+       System.out.println("Details of permanent employee-------------------------");
+       
+        System.out.println("Enter the name of Employee : ");
+       name = sc.nextLine();
+       System.out.println("Enter the Employee code : ");
+       code = sc.nextInt();
+       System.out.println("Enter the typing speed of Employee : ");
+       speed = sc.nextInt();
+       System.out.println("Enter the salary of Regular Employee : ");
+       salary = sc.nextDouble();
+       Regular r = new Regular(salary , speed , code , name);
+       System.out.println();
+       System.out.println(r);
+
+       sc.nextLine();
+       sc.nextLine();
+       System.out.println("Details of casual employee ---------------");
+       System.out.println("Enter the name of Employee : ");
+       name = sc.nextLine();
+       System.out.println("Enter the daily wage of Employee : ");
+       dailyWages = sc.nextDouble();
+       System.out.println("Enter the Employee code : ");
+       code = sc.nextInt();
+       System.out.println("Enter the typing speed of Employee : ");
+       speed = sc.nextInt();
+       Casual c = new Casual(dailyWages , speed , code , name);
+       System.out.println();
+       System.out.println(c);
+        
+        sc.nextLine();
+        sc.nextLine();
+         System.out.println("Details of Teacher ---------------");
+        System.out.println("Enter the Subject of Teacher : ");
+       subject = sc.nextLine();
+       System.out.println("Enter the name of Employee : ");
+       name = sc.nextLine();
+       System.out.println("Enter the Employee code : ");
+       code = sc.nextInt();
+        Teacher t = new Teacher(subject , code , name);
+        System.out.println();
+         System.out.println(t);
+         System.out.println();
+       
+        sc.nextLine();
+        sc.nextLine();
+       System.out.println("Details of officer ---------------");
+       System.out.println("Enter the grade of Employee : ");
+       grade = sc.nextLine();
+       System.out.println("Enter the name of Employee : ");
+       name = sc.nextLine();
+       System.out.println("Enter the Employee code : ");
+       code = sc.nextInt();
+       Officer o = new Officer(grade , code , name);
+       System.out.println();
+       System.out.println(o);
+
+       
+       
 
 
-    
-
-
-
-
-
-
-
+    }
+}
